@@ -1,105 +1,64 @@
-#include <stdio.h>
+#include<stdio.h>
 #define MAX_SIZE 5
+int stack[MAX_SIZE];
+int top=-1;
 
-struct Stack
+int isEmpty()
 {
-    int stack[MAX_SIZE];
-    int top;
-};
-
-void initialize(struct Stack *s)
-{
-    s->top = -1;
+    return top==-1;
 }
-
-int isEmpty(struct Stack *s)
+int isFull()
 {
-    return s->top == -1;
+    return top==MAX_SIZE-1;
 }
-
-int isFull(struct Stack *s)
+int peek()
 {
-    return s->top == MAX_SIZE - 1;
-}
-
-int peek(struct Stack *s)
-{
-    if (isEmpty(s))
-    {
-        printf("The stack is empty\n");
-    }
+    if (isEmpty())
+        printf("The stack is Empty\n");
     else
-    {
-        return s->stack[s->top];
-    }
+        return stack[top];
 }
-
-int push(struct Stack *s, int value)
+int push(int value)
 {
-    if (isFull(s))
-    {
+    if(isFull())
         printf("The stack is full\n");
-    }
     else
-    {
-        s->stack[++s->top] = value;
-        return value;
-    }
+        return stack[++top]=value;
 }
-
-int pop(struct Stack *s)
+int pop()
 {
-    if (isEmpty(s))
-    {
+    if(isEmpty())
         printf("The stack is empty\n");
-    }
-    else 
-    {
-        return s->stack[s->top--];
-    }
-}
-
-void display_stack(struct Stack *s)
-{
-    if (isEmpty(s))
-    {
-        printf("The stack is empty\n");
-    }
     else
-    {
-        for (int i = s->top; i >= 0; i--)
-        {
-            printf("%d ", s->stack[i]);
-        }
-        printf("\n");
-    }
+        return stack[top--];
 }
-
+int display_stack()
+{
+    int i;
+    if(isEmpty())
+        printf("The stack is Empty\n");
+    else
+        for(i=top;i>=0;i--)
+ {
+            printf("%d\n",stack[i]);
+ }
+}
 int main()
 {
-    struct Stack s;
-    initialize(&s);
-
-    push(&s, 10);
-    push(&s, 20);
-    push(&s, 30);
-    push(&s, 40);
-    printf("Elements before pop operation:\n");
-    display_stack(&s);
-    printf("Peek value: %d\n", peek(&s));
-    printf("Popped Element: %d\n", pop(&s));
-    printf("Peek value: %d\n", peek(&s));
-    printf("Popped Element: %d\n", pop(&s));
-    printf("Popped Element: %d\n", pop(&s));
-    printf("Peek value: %d\n", peek(&s));
-    printf("Popped Element: %d\n", pop(&s));
-    printf("Peek value: %d\n", peek(&s));
-    printf("Elements after pop operation:\n");
-    display_stack(&s);
-
-    if(isEmpty(&s))
-     printf("The Stack is empty");
+    push(10);
+    push(20);
+    push(30);
+    push(40);
+    printf("Elements before pop operation\n");
+    display_stack();
+    printf("Peek value:%d",peek());
+    printf("\nPopped Element:%d",pop());
+    printf("\nPeek value:%d",peek());
+    printf("\nPopped Element:%d",pop());
+    printf("\nElements after pop operation\n");
+    display_stack();
+    if(isEmpty())
+     printf("The stack is empty");
     else
      printf("The stack is not empty");
 }
-
